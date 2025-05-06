@@ -26,3 +26,11 @@ jobs:
         
     - name: Run script
       run: python pipeline.py
+      env:
+        API_KEY: ${{ secrets.API_KEY }}
+        SUPABASE_USER: ${{ secrets.SUPABASE_USER }}
+        SUPABASE_PASSWORD: ${{ secrets.SUPABASE_PASSWORD }}
+        SUPABASE_HOST: ${{ secrets.SUPABASE_HOST }}
+        SUPABASE_PORT: ${{ secrets.SUPABASE_PORT }}
+        DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        
