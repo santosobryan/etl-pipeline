@@ -18,7 +18,7 @@ SUPABASE_HOST = os.getenv('SUPABASE_HOST')
 SUPABASE_DATABASE = os.getenv('SUPABASE_DATABASE', 'postgres')
 SUPABASE_USER = os.getenv('SUPABASE_USER')
 SUPABASE_PASSWORD = os.getenv('SUPABASE_PASSWORD')
-SUPABASE_PORT = int(os.getenv('SUPABASE_PORT', '5432'))
+SUPABASE_PORT = 6543
 SUPABASE_URL = os.getenv('SUPABASE_URL')  # Direct connection URL (alternative to individual params)
 
 # Constants
