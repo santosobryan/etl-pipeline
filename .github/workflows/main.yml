@@ -1,0 +1,58 @@
+name: Run Daily Python Script
+
+on:
+  schedule:
+    - cron: '0 3 * * *'
+  workflow_dispatch:
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+    environment: production  
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+      
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+        
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+    
+    - name: Debug environment variables
+      env:
+        API_KEY: ${{ secrets.API_KEY }}             # Now correctly pulls from ENVIRONMENT secrets
+        SUPABASE_USER: ${{ secrets.SUPABASE_USER }}
+        SUPABASE_PASSWORD: ${{ secrets.SUPABASE_PASSWORD }}
+        SUPABASE_HOST: ${{ secrets.SUPABASE_HOST }}
+        SUPABASE_PORT: ${{ secrets.SUPABASE_PORT }}
+        DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      run: |
+        echo "API_KEY is set: $(if [ -n "$API_KEY" ]; then echo "true"; else echo "false"; fi)"
+        echo "SUPABASE_USER is set: $(if [ -n "$SUPABASE_USER" ]; then echo "true"; else echo "false"; fi)"
+        echo "SUPABASE_PASSWORD is set: $(if [ -n "$SUPABASE_PASSWORD" ]; then echo "true"; else echo "false"; fi)"
+        echo "SUPABASE_HOST is set: $(if [ -n "$SUPABASE_HOST" ]; then echo "true"; else echo "false"; fi)"
+        echo "SUPABASE_PORT is set: $(if [ -n "$SUPABASE_PORT" ]; then echo "true"; else echo "false"; fi)"
+        echo "DATABASE_URL is set: $(if [ -n "$DATABASE_URL" ]; then echo "true"; else echo "false"; fi)"
+        
+    - name: Run script
+      run: python pipeline.py
+      env:
+        API_KEY: ${{ secrets.API_KEY }}
+        SUPABASE_USER: ${{ secrets.SUPABASE_USER }}
+        SUPABASE_PASSWORD: ${{ secrets.SUPABASE_PASSWORD }}
+        SUPABASE_HOST: ${{ secrets.SUPABASE_HOST }}
+        SUPABASE_PORT: ${{ secrets.SUPABASE_PORT }}
+        DATABASE_URL: ${{ secrets.DATABASE_URL }}
+
+    - name: Show available secrets
+      run: |
+        echo "All secrets:"
+        echo "${{ toJson(secrets) }}" | jq .
+        
+        echo "Environment: ${{ github.environment }}"
