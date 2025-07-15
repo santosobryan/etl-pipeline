@@ -26,7 +26,7 @@ jobs:
     
     - name: Debug environment variables
       env:
-        API_KEY: ${{ secrets.API_KEY }}             # Now correctly pulls from ENVIRONMENT secrets
+        API_KEY: ${{ secrets.API_KEY }}             
         SUPABASE_USER: ${{ secrets.SUPABASE_USER }}
         SUPABASE_PASSWORD: ${{ secrets.SUPABASE_PASSWORD }}
         SUPABASE_HOST: ${{ secrets.SUPABASE_HOST }}
@@ -49,10 +49,3 @@ jobs:
         SUPABASE_HOST: ${{ secrets.SUPABASE_HOST }}
         SUPABASE_PORT: ${{ secrets.SUPABASE_PORT }}
         DATABASE_URL: ${{ secrets.DATABASE_URL }}
-
-    - name: Show available secrets
-      run: |
-        echo "All secrets:"
-        echo "${{ toJson(secrets) }}" | jq .
-        
-        echo "Environment: ${{ github.environment }}"
