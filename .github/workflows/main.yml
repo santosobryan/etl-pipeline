@@ -49,3 +49,10 @@ jobs:
         SUPABASE_HOST: ${{ secrets.SUPABASE_HOST }}
         SUPABASE_PORT: ${{ secrets.SUPABASE_PORT }}
         DATABASE_URL: ${{ secrets.DATABASE_URL }}
+
+    - name: Show available secrets
+      run: |
+        echo "All secrets:"
+        echo "${{ toJson(secrets) }}" | jq .
+        
+        echo "Environment: ${{ github.environment }}"
