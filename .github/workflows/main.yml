@@ -8,7 +8,7 @@ on:
 jobs:
   run-script:
     runs-on: ubuntu-latest
-    environment: production  
+    environment: .env  
     
     steps:
     - name: Checkout repository
