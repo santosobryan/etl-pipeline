@@ -12,7 +12,7 @@ from typing import Optional, Dict, List
 
 # Load environment variables
 load_dotenv()
-API_KEY = os.getenv('API_KEY')
+API_KEY = os.getenv('SECOND_API')
 
 # Constants
 SUPABASE_HOST = os.getenv('SUPABASE_HOST')
