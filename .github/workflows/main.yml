@@ -39,6 +39,8 @@ jobs:
         echo "SUPABASE_HOST is set: $(if [ -n "$SUPABASE_HOST" ]; then echo "true"; else echo "false"; fi)"
         echo "SUPABASE_PORT is set: $(if [ -n "$SUPABASE_PORT" ]; then echo "true"; else echo "false"; fi)"
         echo "DATABASE_URL is set: $(if [ -n "$DATABASE_URL" ]; then echo "true"; else echo "false"; fi)"
+        echo "SECOND_API is set: $(if [ -n "$SECOND_API" ]; then echo "true"; else echo "false"; fi)"
+        echo "SUPABASE_URL is set: $(if [ -n "$SUPABASE_URL" ]; then echo "true"; else echo "false"; fi)"
         
     - name: Run first script
       run: python pipeline.py
@@ -53,9 +55,9 @@ jobs:
     - name: Run second script
       run: python secondScript.py
       env: 
-        API_KEY: ${{ secrets.SECOND_API }}
+        SECOND_API: ${{ secrets.SECOND_API }}
         SUPABASE_USER: ${{ secrets.SUPABASE_USER }}
         SUPABASE_PASSWORD: ${{ secrets.SUPABASE_PASSWORD }}
         SUPABASE_HOST: ${{ secrets.SUPABASE_HOST }}
         SUPABASE_PORT: ${{ secrets.SUPABASE_PORT }}
-        DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
